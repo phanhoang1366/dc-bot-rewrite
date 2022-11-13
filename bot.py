@@ -4,16 +4,16 @@ import random
 import sqlite3
 import asyncio
 
-from checktime import check_past, check_too_late
-from insdeldb import insert_remind, delete_remind, insert_warn, delete_warn
+from dismods.checktime import *
+from dismods.insdeldb import *
 from datetime import datetime
 import parsedatetime
 import dateparser
 import subprocess
 import re
-import ggsearch
-from vndict import vndict
-from keep_alive import keep_alive
+import dismods.ggsearch
+from dismods.vndict import vndict
+from dismods.keep_alive import keep_alive
 from dotenv import load_dotenv
 
 import discord
