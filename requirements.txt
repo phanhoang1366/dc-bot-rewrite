@@ -1,9 +1,9 @@
-discord==1.7.3
-discord.py==1.7.3
+discord~=2.1.0
+discord.py~=2.1.0
 parsedatetime>=2.6
 dateparser>=1.0.0
 python-dotenv
 googlesearch-python==1.1.0
 lxml
-yt-dlp==2022.9.1
+yt-dlp
 flask
