@@ -25,7 +25,7 @@ from discord import app_commands
 
 load_dotenv()
 TOKEN = os.environ['DISCORD_TOKEN']
-MY_GUILD = discord.Object(id=687132972591480854)
+#MY_GUILD = discord.Object(id=687132972591480854)
 
 db = "database.db"
 conn = sqlite3.connect(db)
@@ -37,9 +37,9 @@ class MyBot(commands.Bot):
         super().__init__(command_prefix='!', intents=intents)
         
     async def setup_hook(self):
-        self.tree.copy_global_to(guild=MY_GUILD)
+        #self.tree.copy_global_to(guild=MY_GUILD)
         self.check_remind.start()
-        await self.tree.sync(guild=MY_GUILD)
+        await self.tree.sync(guild=None)
         
     @tasks.loop()
     async def check_remind(self):
