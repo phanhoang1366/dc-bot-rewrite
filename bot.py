@@ -135,7 +135,7 @@ class Fun(commands.Cog):
         response = random.choice(brooklyn_99_quotes)
         await ctx.send(response)
 
-    @commands.command(pass_context = True, help='It does nothing.')
+    @commands.command(pass_context = True, help='Fake warn someone (why?)')
     async def fakewarn(self, ctx, user:discord.User = None, *reason:str):
     
         await ctx.message.delete()
@@ -175,7 +175,7 @@ class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(pass_context = True, help='A test warn command.')
+    @commands.command(pass_context = True, help='A warn command. Needs a role named Muted to work.')
     async def warn(self, ctx, user:discord.User = None, *reason:str):
         if(ctx.message.author.guild_permissions.administrator):
             if user is None:
@@ -209,7 +209,7 @@ class Moderation(commands.Cog):
 
     @commands.command(pass_context = True, help='Remove warn by moderator.')
     async def rmwarn(self, ctx, caseid:int):
-        if ctx.message.author.guild_permissions.administrator or ctx.message.author.id == '277376731634073601' or ctx.message.author.id == '798174083598516225':
+        if ctx.message.author.guild_permissions.administrator:
             try:
                 delete_warn(caseid)
                 await ctx.send(f"CaseID {caseid} deleted.")
@@ -222,7 +222,7 @@ class Moderation(commands.Cog):
 
     @commands.command(pass_context = True, help="Another test mute command")
     async def mute(self, ctx, member: discord.Member, *reason:str):
-         if ctx.message.author.guild_permissions.administrator or ctx.message.author.id == '277376731634073601' or ctx.message.author.id == '798174083598516225':
+         if ctx.message.author.guild_permissions.administrator:
             role = discord.utils.get(member.guild.roles, name='Muted')
             await member.add_roles(role)
             
@@ -239,9 +239,9 @@ class Moderation(commands.Cog):
             await ctx.send(embed=embed, delete_after = 2)
             
             
-    @commands.command(pass_context = True, help="Another test unmute command")
+    @commands.command(pass_context = True, help="An unmute command. Same thing as mute.")
     async def unmute(self, ctx, member: discord.Member):
-        if ctx.message.author.guild_permissions.administrator or ctx.message.author.id == '277376731634073601' or ctx.message.author.id == '798174083598516225':
+        if ctx.message.author.guild_permissions.administrator:
             role = discord.utils.get(member.guild.roles, name='Muted')
             await member.remove_roles(role)
             embed = discord.Embed(title="User Unmuted!", description="**{0}** was unmuted by **{1}**!".format(member, ctx.message.author), color=0x00ff00)
