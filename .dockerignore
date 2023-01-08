@@ -1,0 +1,6 @@
+.github/**
+.gitignore
+LICENSE
+bot.py.bak
+database.db
+runtime.txt
