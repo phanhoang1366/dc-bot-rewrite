@@ -6,9 +6,9 @@ def ydl(url, option):
     if option == "list-formats" or option == "-F":
         cmdopt = "-F"
     elif option != "":
-        cmdopt = "-f " + option
+        cmdopt = "-f \"" + option + "\""
     else:
-        cmdopt = "-f best[filesize<=25M] -S vcodec:h264"
+        cmdopt = "-f \"best[filesize<=25M]\" -S vcodec:h264"
         
     cmd = "yt-dlp " + cmdopt + " \"" + url + "\" -o video.mp4 --max-filesize 25M --no-colors --user-agent \"Mozilla/5.0 (Windows NT 10.0; WOW64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.5666.197 Safari/537.36\""
     
