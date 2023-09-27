@@ -104,7 +104,25 @@ async def dl(interaction: discord.Interaction, url: str, option: Optional[str] =
     elif status == 10 or status == 11:
         await interaction.edit_original_response(content="Something happened. Output:", attachments=[discord.File("output.txt")])
         os.remove("output.txt")
+
+@bot.tree.command(description='Generate a link to automatically input the code to Genshin or HSR.')
+@app_commands.describe(
+    code='The code you want to input.',
+    option='Required. Either genshin or hsr.',
+)    
+async def code(interaction: discord.Interaction, code: str, option: typing.Literal['genshin', 'hsr']):
+    if option == 'genshin':
+        base_url = 'https://genshin.hoyoverse.com/en/gift'
+    elif option == 'hsr':
+        base_url = 'https://hsr.hoyoverse.com/gift'
     
+    # Check if the code is valid, since it should be 12 characters long. \b\w{12}\b
+    # base_url + '?code=' + code
+    if re.match(r'\b\w{12}\b', code):
+        await interaction.response.send_message(base_url + '?code=' + code)
+    else:
+        await interaction.response.send_message('Invalid code.', ephemeral=True)
+
 
 @bot.event
 async def on_ready():
