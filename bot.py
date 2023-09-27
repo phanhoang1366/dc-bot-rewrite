@@ -4,7 +4,7 @@ import random
 import sqlite3
 import asyncio
 import threading
-from typing import Sequence, Optional
+from typing import Sequence, Optional, Literal
 
 from dismods.checktime import *
 from dismods.insdeldb import *
@@ -110,18 +110,23 @@ async def dl(interaction: discord.Interaction, url: str, option: Optional[str] =
     code='The code you want to input.',
     option='Required. Either genshin or hsr.',
 )    
-async def code(interaction: discord.Interaction, code: str, option: typing.Literal['genshin', 'hsr']):
+async def code(interaction: discord.Interaction, code: str, option: Literal['genshin', 'hsr']):
     if option == 'genshin':
         base_url = 'https://genshin.hoyoverse.com/en/gift'
     elif option == 'hsr':
         base_url = 'https://hsr.hoyoverse.com/gift'
     
     # Check if the code is valid, since it should be 12 characters long. \b\w{12}\b
-    # base_url + '?code=' + code
-    if re.match(r'\b\w{12}\b', code):
-        await interaction.response.send_message(base_url + '?code=' + code)
+    # What if the user inputs multiple codes? Split it, of course.
+    codes = re.findall(r'\b\w{12}\b', code)
+    if not codes:
+        await interaction.response.send_message('No valid code found.', ephemeral=True)
+        return
     else:
-        await interaction.response.send_message('Invalid code.', ephemeral=True)
+        codes.insert(0, base_url)
+        response = '\n'.join(codes)
+        await interaction.response.send_message(response)
+            
 
 
 @bot.event
