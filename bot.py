@@ -112,9 +112,9 @@ async def dl(interaction: discord.Interaction, url: str, option: Optional[str] =
 )    
 async def code(interaction: discord.Interaction, code: str, option: Literal['genshin', 'hsr']):
     if option == 'genshin':
-        base_url = 'https://genshin.hoyoverse.com/en/gift'
+        base_url = 'https://genshin.hoyoverse.com/en/gift?code='
     elif option == 'hsr':
-        base_url = 'https://hsr.hoyoverse.com/gift'
+        base_url = 'https://hsr.hoyoverse.com/gift?code='
     
     # Check if the code is valid, since it should be 12 characters long. \b\w{12}\b
     # What if the user inputs multiple codes? Split it, of course.
@@ -123,9 +123,10 @@ async def code(interaction: discord.Interaction, code: str, option: Literal['gen
         await interaction.response.send_message('No valid code found.', ephemeral=True)
         return
     else:
-        codes.insert(0, base_url)
-        response = '\n'.join(codes)
-        await interaction.response.send_message(response)
+        # Generate the link
+        # If there are multiple codes, generate multiple links
+        links = [base_url + code for code in codes]
+        await interaction.response.send_message('\n'.join(links))
             
 
 
