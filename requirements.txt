@@ -3,7 +3,7 @@ discord.py~=2.1.0
 parsedatetime>=2.6
 dateparser>=1.0.0
 python-dotenv
-googlesearch-python==1.1.0
+googlesearch-python
 lxml
 yt-dlp==2023.11.16
 flask
