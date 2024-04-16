@@ -5,5 +5,5 @@ dateparser>=1.0.0
 python-dotenv
 googlesearch-python
 lxml
-yt-dlp==2024.3.10
+yt-dlp==2024.4.9
 flask
