@@ -7,7 +7,7 @@ def ydl(url, option):
     elif option != "":
         cmdopt = f"-f {option}"
     else:
-        cmdopt = "-f 18/sd/mp4+m4a/w -S vcodec:h264"
+        cmdopt = "-f 18/sd/mp4+m4a/w/mp4/webm -S vcodec:h264"
         
     cmd = [
         "yt-dlp", cmdopt, url, "-o", "video.mp4", "--max-filesize", "10M", 
