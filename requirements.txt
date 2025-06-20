@@ -7,3 +7,4 @@ googlesearch-python
 lxml
 yt-dlp==2025.5.22
 flask
+urllib3>=2.5.0 # not directly required, pinned by Snyk to avoid a vulnerability
