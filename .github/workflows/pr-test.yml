@@ -1,0 +1,43 @@
+name: Test Docker Image on PR
+
+on:
+  pull_request:
+    branches: [ "*" ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout PR branch
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    
+    - name: Build Docker image
+      run: |
+        docker build -t dc-bot-test:pr-${{ github.event.pull_request.number }} .
+    
+    - name: Run Docker image for 15 seconds
+      run: |
+        echo "Starting Docker container..."
+        docker run -d --name dc-bot-test dc-bot-test:pr-${{ github.event.pull_request.number }}
+        echo "Container started, waiting 15 seconds..."
+        sleep 15
+        echo "Stopping container..."
+        docker stop dc-bot-test
+        echo "Test completed successfully!"
+    
+    - name: Show container logs
+      if: always()
+      run: |
+        echo "Container logs:"
+        docker logs dc-bot-test || echo "No logs available"
+    
+    - name: Cleanup
+      if: always()
+      run: |
+        docker rm -f dc-bot-test || true
