@@ -8,3 +8,4 @@ googlesearch-python
 lxml
 yt-dlp==2026.7.4
 flask
+requests>=2.32.4 # not directly required, pinned by Snyk to avoid a vulnerability
